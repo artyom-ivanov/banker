@@ -18,7 +18,7 @@ import { AppContext } from "./AppContext";
 import Profile from "../features/Profile";
 import Main from "../features/Main";
 import NewRoom from "../features/NewRoom";
-import Room from "../features/Room";
+import Room from "../features/Room/Room";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

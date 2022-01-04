@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Edit, LogOut, PlusCircle, UserPlus } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../app/AppContext";
+import Rooms from "./Rooms";
 
 export default function Main() {
   const { userInfo, auth } = useContext(AppContext);
@@ -46,6 +47,8 @@ export default function Main() {
           <UserPlus size={16} className="mr-2" /> Подключиться к комнате
         </button>
       </div>
+
+      <Rooms />
     </div>
   );
 }

@@ -5,8 +5,6 @@ import { AppContext } from "../app/AppContext";
 import { Button } from "../shared/Button";
 import {
   getFirestore,
-  doc,
-  setDoc,
   collection,
   addDoc,
   Timestamp,
@@ -15,7 +13,7 @@ import { Input } from "../shared/Input";
 import { nanoid } from "nanoid";
 
 export default function NewRoom() {
-  const { user } = useContext(AppContext);
+  const { user, userInfo } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -35,6 +33,16 @@ export default function NewRoom() {
       starter: parseInt(starter) || 0,
       code,
       createdAt: Timestamp.fromDate(new Date()),
+      players: [
+        {
+          uid: user.uid,
+          name: userInfo.name,
+          photo: userInfo.photo,
+          createdAt: Timestamp.fromDate(new Date()),
+          connected: null,
+        },
+      ],
+      transactions: [],
     };
 
     addDoc(collection(db, "rooms"), roomData)
@@ -46,7 +54,7 @@ export default function NewRoom() {
         console.error(e);
         setLoading(false);
       });
-  }, [name, navigate, starter, user.uid]);
+  }, [name, navigate, starter, user.uid, userInfo.name, userInfo.photo]);
 
   return (
     <div className="relative w-full p-6 bg-white rounded-xl shadow-xl max-w-screen-sm mx-auto mt-4 mb-32">
